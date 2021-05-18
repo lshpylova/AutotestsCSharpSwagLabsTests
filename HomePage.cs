@@ -18,17 +18,16 @@ namespace SwagLabsTests
         {
             driver = new ChromeDriver();
             driver.Manage().Window.Maximize();
+            driver.Url = "https://www.saucedemo.com/";
+            System.Threading.Thread.Sleep(2000);
+            LogInPage loginPage = new LogInPage(driver);
+            loginPage.loginValidUser("standard_user", "secret_sauce");
         }
 
         [Test]
         public void TestLogin()
         {
-            driver.Url = "https://www.saucedemo.com/";
-            System.Threading.Thread.Sleep(2000);
             LogInPage loginPage = new LogInPage(driver);
-            loginPage.loginValidUser("standard_user", "secret_sauce");
-
-            /* Perform wait to check the output */
             System.Threading.Thread.Sleep(2000);
             Assert.That("PRODUCTS", Is.EqualTo(loginPage.displayName()));
         }
@@ -36,10 +35,8 @@ namespace SwagLabsTests
         [Test]
         public void TestAddToCart()
         {
-            driver.Url = "https://www.saucedemo.com/";
-            System.Threading.Thread.Sleep(2000);
+ 
             LogInPage loginPage = new LogInPage(driver);
-            loginPage.loginValidUser("standard_user", "secret_sauce");
             AddToCart addToCartGood = new AddToCart(driver);
             addToCartGood.addToCart();
 
