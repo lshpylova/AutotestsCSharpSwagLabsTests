@@ -33,6 +33,22 @@ namespace SwagLabsTests
             Assert.That("PRODUCTS", Is.EqualTo(loginPage.displayName()));
         }
 
+        [Test]
+        public void TestAddToCart()
+        {
+            driver.Url = "https://www.saucedemo.com/";
+            System.Threading.Thread.Sleep(2000);
+            LogInPage loginPage = new LogInPage(driver);
+            loginPage.loginValidUser("standard_user", "secret_sauce");
+            AddToCart addToCartGood = new AddToCart(driver);
+            addToCartGood.addToCart();
+
+            /* Perform wait to check the output */
+            System.Threading.Thread.Sleep(2000);
+            Assert.That("1", Is.EqualTo(addToCartGood.shoppingCartBadgeDisplay()));
+
+        }
+
         [TearDown]
         public void close_Browser()
         {
